@@ -1,0 +1,211 @@
+/* Nettoyage et typographie moderne */
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 0; 
+    background-color: #f4f4f4; 
+    line-height: 1.6;
+}
+
+/* Fusion des règles header : tout est regroupé ici */
+header { 
+    background-color: #28a745; /* Votre vert */
+    color: #ffffff; 
+    padding: 20px; 
+    text-align: center; 
+    border-bottom: 5px solid #dc3545; /* Votre rouge */
+    position: relative; /* Nécessaire pour le positionnement du logo */
+    height: 120px;      /* Hauteur ajustée pour le logo */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Ombre légère style Astra */
+}
+
+/* Positionnement moderne du logo */
+.logo-droite {
+    position: absolute; 
+    top: 50%;           /* Centre verticalement */
+    transform: translateY(-50%); /* Ajustement précis du centrage */
+    left: 20px; 
+    max-width: 120px;
+}
+
+/* Amélioration de la navigation */
+nav { margin-top: 10px; }
+nav a { 
+    color: white; 
+    margin: 0 15px; 
+    text-decoration: none; 
+    font-weight: 600; 
+    transition: opacity 0.3s; 
+}
+nav a:hover { opacity: 0.8; }
+
+main { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+
+/* Cartes de contenu (tutoriels) avec style moderne */
+.video-card {
+    background: #fff;
+    padding: 20px;
+    margin: 30px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-width: 600px;
+    display: flex;
+    flex-direction: column; /* Force le titre à rester au-dessus */
+    align-items: left;
+}
+
+.video-title {
+    margin: 0 0 15px 0;      /* Espace en bas du titre */
+    font-size: 1.4rem;
+    color: #28a745;          /* Votre couleur verte */
+    width: 100%;
+    text-align: center;
+}
+
+.video-item {
+    width: 100%;
+    border-radius: 8px;
+    background: #000;
+}
+.video-card:hover { transform: translateY(-5px); 
+
+}
+
+.video-card {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Ratio 16:9 (9 divisé par 16 = 0.5625) */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 35px;   
+}
+
+.video-card video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-drive { 
+    display: inline-block; 
+    margin-top: 15px; 
+    padding: 12px 25px; 
+    background-color: #28a745; 
+    color: white; 
+    text-decoration: none; 
+    border-radius: 4px; 
+    font-weight: bold;
+    transition: background 0.3s;
+}
+.btn-drive:hover { background-color: #218838; 
+}
+.search-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: ;
+}
+
+.search-container input {
+    padding: 8px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    width: 250px;
+}
+
+.search-container button {
+    padding: 8px 15px;
+    background-color: #dc3545; /* Rouge pour contraster */
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-container button:hover {
+    background-color: #a71d2a;
+}
+.header-left {
+    display: flex;         /* Aligne le logo et la recherche côte à côte */
+    align-items: center;   /* Aligne verticalement */
+    gap: 20px;             /* Espace entre le logo et la barre */
+    flex: 1;               /* Prend l'espace disponible à gauche */
+}
+.main-header {
+    display: flex;         /* Active la disposition flexible */
+    align-items: center;   /* Aligne tout verticalement au milieu */
+    justify-content: flex-start; /* Espace entre les blocs */
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border-bottom: 5px solid #dc3545;
+    height: 120px;
+    gap: 30px;
+}
+.header-left {
+    display: flex;         /* Aligne logo et recherche */
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+.header-right h1 {
+    font-size: 40px;       /* Titre plus petit pour tenir */
+    margin: 200px;
+    white-space: nowrap;   /* Empêche le retour à la ligne */
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -450px; /* Caché à droite */
+    width: 320px;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    transition: 0.4s; /* Vitesse du glissement */
+    z-index: 1000;
+    padding: 20px;
+}
+
+.sidebar.active { 
+	right: 0 !important;
+	display: block !important;
+ } /* Visible quand la classe 'active' est ajoutée */
+	
+#sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9998;
+}
+
+.sidebar-header { display: flex; justify-content: space-between; align-items: center; 
+}
+.close-btn { 
+    padding: 8px 15px;
+    background-color: #dc3545; /* Rouge pour contraster */
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+/* Style pour rendre le bouton totalement invisible en tant que bouton */
+.btn-menu-clean {
+    background: none;        /* Supprime le fond gris par défaut */
+    border: none;            /* SUPPRIME LA BORDURE */
+    padding: 0;              /* Supprime l'espace interne */
+    cursor: pointer;         /* Garde l'icône de souris */
+    color: white;            /* Garde la couleur de votre texte */
+    font-size: 16px;         /* Ajustez selon votre besoin */
+    font-weight: bold;
+    outline: none;           /* Supprime le cadre bleu lors du clic */
+}
+
+/* Optionnel : effet visuel au survol pour montrer que c'est cliquable */
+.btn-menu-clean:hover {
+    color: #ffcccc;          /* Changement de couleur léger au survol */
+}

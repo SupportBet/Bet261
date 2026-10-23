@@ -1,0 +1,146 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+$bdd = new PDO('mysql:host=localhost;dbname=support_caissier', 'user_support', 'Admin12..');
+$videos = $bdd->query('SELECT * FROM tutoriels');
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>BET261 | Portail Tutoriels</title>
+</head>
+<body>
+    <header class="main-header">
+     <div class="header-left">
+     <div class="header-right">
+        <h1 class="h1">BET261 Support</h1>
+      </div>
+        <nav>
+            <a href="index.php">Accueil</a>
+            <a href="javascript:void(0)" class="btn-menu-clean" onclick="openTuto()">Tutoriels Caisse</a>
+            <a href="javascript:void(0)" class="btn-menu-clean" onclick="openDoc()">Documents</a>
+        </nav>
+	<div id="sidebar-documents" class="sidebar">
+    <div class="sidebar-header">
+        <h2 id="title-documents" style="font-size: 1.2rem; color: #28a745; margin-bottom: 20px;">Liste des Documents</h2>
+        <button class="close-btn" onclick="closeAll()">Fermer</button>
+    </div>
+    <ul>
+        <?php
+        $docs = $bdd->query("SELECT * FROM tutoriels WHERE type != 'video' ORDER BY id DESC");
+        while ($doc = $docs->fetch()) {
+            echo "<li><a href='" . htmlspecialchars($doc['fichier_path']) . "' target='_blank'>📄 " . htmlspecialchars($doc['titre']) . "</a></li>";
+        }
+        ?>
+    </ul>
+</div>
+
+<div id="sidebar-tuto" class="sidebar">
+    <div class="sidebar-header">
+        <h2 id="title-tuto" style="font-size: 1.2rem; color: #28a745; margin-bottom: 20px;">Liste des Videos</h2>
+        <button class="close-btn" onclick="closeAll()">Fermer</button>
+    </div>
+    <ul>
+	<?php
+    // On sélectionne uniquement les tutoriels de type 'video'
+    $tutos = $bdd->query("SELECT * FROM tutoriels WHERE type = 'video' ORDER BY id DESC");
+    
+    while ($tuto = $tutos->fetch()) {
+        $videoPath = htmlspecialchars($tuto['fichier_path']);
+        $titre = htmlspecialchars($tuto['titre']);
+        
+        // Au clic, on appelle la fonction playVideo() avec le chemin du fichier
+        echo "<li>
+                <a href='javascript:void(0)' onclick=\"playVideo('$videoPath')\">
+                    ▶ " . $titre . "
+                </a>
+              </li>";
+    }
+    ?>
+    </ul>
+</div>
+<div id="sidebar-overlay" onclick="closeAll()"></div>
+
+	<img src="assets/logobet261.png" class="logo-droite" alt="Logo BET 261">
+       <div class="search-container">
+        <form action="index.php" method="GET">
+            <input type="text" placeholder="Rechercher un tuto..." name="q">
+            <button type="submit">OK</button>
+        </form>
+    </div>
+   </div>
+    <style>
+    /* Supprime les marges par défaut du navigateur */
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    /* Force votre conteneur principal à prendre tout l'espace disponible */
+    .main-container {
+        width: 100%;
+        min-height: 100vh; /* 100% de la hauteur de la fenêtre */
+        box-sizing: border-box; /* Inclut les bordures dans la largeur */
+    }
+  </style>
+    </header>
+   <main>
+     <?php
+$videos = $bdd->query('SELECT * FROM tutoriels WHERE type = "video" ORDER BY id DESC');
+while ($tuto = $videos->fetch()) {
+    echo '<div class="video-card">';
+    echo '<h3>' . htmlspecialchars($tuto['titre']) . '</h3>';
+    
+    // Code ultra-simple et propre
+    echo '<video width="600" controls>
+            <source src="' . htmlspecialchars($tuto['fichier_path']) . '" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+          </video>';
+          
+    echo '</div>';
+}
+?>
+<h2 id="javascript:void(0)"></h2>
+    <div class="section-docs">
+       <?php
+       // On récupère tout ce qui n'est pas 'video'
+       $docs = $bdd->query("SELECT * FROM tutoriels WHERE type != 'video'");
+       while ($doc = $docs->fetch()) {
+           echo '<div class="doc-card">';
+           // Icône ou lien selon l'extension
+           echo '</div>';
+       }
+       ?>
+      </div>
+    </main>
+<script>
+    // Ouverture manuelle
+    function openTuto() {
+        document.getElementById("sidebar-tuto").classList.add("active");
+    }
+    function openDoc() {
+        document.getElementById("sidebar-documents").classList.add("active");
+    }
+
+    // Fermeture manuelle
+    function closeAll() {
+        document.getElementById("sidebar-tuto").classList.remove("active");
+        document.getElementById("sidebar-documents").classList.remove("active");
+    }
+</script>
+<script>
+function playVideo(videoPath) {
+    var videoPlayer = document.getElementById("main-video");
+    // Change la source de la vidéo
+    videoPlayer.src = videoPath;
+    // Recharge et lance la vidéo
+    videoPlayer.load();
+    videoPlayer.play();
+}
+</script>
+</body>
+</html>
